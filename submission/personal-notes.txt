@@ -2,34 +2,33 @@ PHIẾU CÁ NHÂN — DAY 14
 Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Vương Tuấn Dương / 2A202602046
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-c / track ID 0
+Phiên bản CVAT / overlay đã bật (có/không): CVAT 2.75.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+Frame fit và lý do: frame 48; đây là frame neo của J01-c, xác nhận đúng xe bằng ROI trên image_1 và overlay Camera–LiDAR.
+L / W / H (m): 4.55 / 1.96 / 1.71
+Keyframe quan trọng và lý do: 35 (bắt đầu đoạn đủ evidence), 40, 45, 48 (frame neo), 50, 55, 60, 64, 65 (cuối sequence); các mốc trung gian giữ nội suy bám chuyển động.
+Đã bấm F qua đủ frame 0–65 (có/không): có; đã duyệt toàn bộ sequence bằng điều khiển chuyển frame của CVAT.
+Đoạn thưa / che khuất / dễ nhầm identity: frame 34 trở về trước không đủ evidence để xác nhận cùng identity; đặt Outside trước đoạn visible, track từ frame 35 đến 65.
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+Lần QC đầu — cờ của track J01 (loại, frame): fragmentation_suspect (35); no_interpolation (35, do 31/31 frame là keyframe).
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: sửa no_interpolation bằng cách bỏ keyframe dư và kiểm tra nội suy; giữ fragmentation_suspect vì trước frame 35 chưa đủ evidence để nối cùng identity, không nối track bằng suy đoán.
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: giảm từ 31 xuống 9 keyframe; QC cuối còn fragmentation_suspect tại frame 35. Track cuối có 31 frame (35–65), L/W/H drift 0, không có gap.
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
+Ca bình thường (frame / quan sát): frame 48; đã dùng ROI [1615, 840, 1910, 1017] và overlay trên image_1 để xác nhận J01-c. Cuboid chiếu khá khớp với thân xe, bao đúng vị trí và hướng đầu–đuôi phù hợp; không thấy lệch hệ thống đáng kể.
+Ca khó (frame / quan sát 2D / quan sát 3D): frame 35; xe đã ở cách khoảng 38 m nên evidence LiDAR thưa và đây là mốc sớm nhất còn xác nhận được J01-c. Sang frame 34 không còn đủ cơ sở để nhận diện chắc chắn cùng chiếc xe.
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): sparse do khoảng cách xa; frame 34 chưa đủ evidence về identity, không có bằng chứng cho thấy calibration sai.
+Hành động (sửa / giữ / báo Lab Coach) và lý do: giữ track bắt đầu tại frame 35 và để Outside trước đó; không nối track ngược sang frame 34 bằng suy đoán.
 
 CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Case → track ID (ví dụ B01 → 3): B01 → track ID 0
+Case đã xong: B01, frame 16–21; 2 keyframe tại frame 16 và 21; L/W/H = 4.15 / 1.78 / 1.72 m.
+Case đang dở / chỗ kẹt: không có.
+fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không): có; cờ tại frame 16 và 21 là do B01 được quy định cắt trong đoạn 16–21, không phải lỗi identity. QC practice: 6 frame, 2 keyframe, L/W/H drift 0, không có gap.
 
 THỜI GIAN
 J01 / case ngắn / QC và fusion:
